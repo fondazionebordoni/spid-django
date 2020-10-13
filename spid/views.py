@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_POST, require_http_methods
 
 from .apps import SpidConfig
-from .utils import init_saml_auth, process_user, prepare_django_request
+from .utils import init_saml_auth, prepare_django_request, set_user_authenticated, is_user_authenticated
 from onelogin.saml2.settings import OneLogin_Saml2_Settings
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
 
@@ -18,7 +18,7 @@ def login(request):
     """
         Handle login action ( SP -> IDP )
     """
-    if request.user.is_authenticated:
+    if is_user_authenticated(request):
         return HttpResponseRedirect('/')
     req = prepare_django_request(request)
     if 'idp' in req['get_data']:
@@ -51,6 +51,8 @@ def slo_logout(request):
             auth.logout(
                 name_id=name_id,
                 session_index=session_index,
+                # TODO capire come deve essere
+                nq='dummyvalue'
             )
         )
     return HttpResponseServerError()
@@ -98,7 +100,7 @@ def attributes_consumer(request):
         errors = auth.get_errors()
         if not errors:
             user_attributes = auth.get_attributes()
-            process_user(request, user_attributes)
+            set_user_authenticated(request)
             user_attributes = auth.get_attributes()
             request.session['samlUserdata'] = user_attributes
             request.session['samlNameId'] = auth.get_nameid()

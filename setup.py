@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-spid',
+    name='spid-django',
     packages=find_packages(exclude='example'),
     include_package_data=True,
     zip_safe=False,
@@ -9,7 +9,7 @@ setup(
     description='Spid authentication app for django',
     author='Marco Federighi',
     author_email='federighi.marco@gmail.com',
-    url='https://github.com/spid-django-hack17/spid-django',
+    url='https://github.com/italia/spid-django',
     keywords=['django', 'authentication', 'spid', 'italia'],
     classifiers=[
         'Intended Audience :: Developers',

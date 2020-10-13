@@ -28,6 +28,14 @@ def prepare_django_request(request):
     }
     return result
 
+def set_user_authenticated(request):
+    request.session['is_logged_in_spid'] = True
+
+def is_user_authenticated(request):
+    try:
+        return request.session['is_logged_in_spid']
+    except KeyError:
+        return False
 
 def process_user(request, attributes):
     from .app_settings import app_settings
