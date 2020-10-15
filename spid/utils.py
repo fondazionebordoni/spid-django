@@ -28,8 +28,8 @@ def prepare_django_request(request):
     }
     return result
 
-def set_user_authenticated(request):
-    request.session['is_logged_in_spid'] = True
+def set_user_authenticated(request, is_authenticated=False):
+    request.session['is_logged_in_spid'] = is_authenticated
 
 def is_user_authenticated(request):
     try:

@@ -66,20 +66,18 @@ def sls_logout(request):
     idp = request.session.get('idp')
     if idp:
         auth = init_saml_auth(req, idp)
-        errors = []
-        not_auth_warn = False
-        success_slo = False
-        attributes = False
-        paint_logout = False
         # TODO maybe just remove the SPID data from the session
+        # TODO the callback is not being called!
         dscb = lambda: request.session.flush()
         url = auth.process_slo(delete_session_cb=dscb)
         errors = auth.get_errors()
         if len(errors) > 0:
             return HttpResponseServerError(errors)
         redirect_to = '/'
-        if url:
+        if url is not None:
             redirect_to = url
+        else:
+            django_logout(request)
         return HttpResponseRedirect(redirect_to)
     return HttpResponseServerError()
 
@@ -101,7 +99,7 @@ def attributes_consumer(request):
             request.session['samlUserdata'] = user_attributes
             request.session['samlNameId'] = auth.get_nameid()
             request.session['samlSessionIndex'] = auth.get_session_index()
-            request.session['is_logged_in_spid'] = True
+            set_user_authenticated(request, True)
             redirect_to = '/'
             if 'RelayState' in req['post_data'] and OneLogin_Saml2_Utils.get_self_url(req) != req['post_data']['RelayState']:
                 redirect_to = auth.redirect_to(req['post_data']['RelayState'])
