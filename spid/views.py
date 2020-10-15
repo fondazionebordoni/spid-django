@@ -4,10 +4,8 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import (HttpResponse, HttpResponseRedirect, HttpResponseServerError)
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.http import require_POST, require_http_methods
-
 from .utils import init_saml_auth, prepare_django_request, set_user_authenticated, is_user_authenticated
 from onelogin.saml2.settings import OneLogin_Saml2_Settings
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
@@ -107,26 +105,3 @@ def attributes_consumer(request):
     return HttpResponseServerError()
 
 
-# def metadata(request):
-#     """
-#         Expose SP Metadata
-#     """
-#     params = {
-#         'sp_validation_only': True
-#     }
-#     if settings.DEBUG:
-#         params['settings'] = None
-#         params['custom_base_path'] = settings.SAML_FOLDER
-#     else:
-#         params['settings'] = SpidConfig.get_saml_settings()
-#     saml_settings = OneLogin_Saml2_Settings(
-#         **params
-#     )
-#     metadata = saml_settings.get_sp_metadata()
-#     errors = saml_settings.validate_metadata(metadata)
-
-#     if len(errors) == 0:
-#         resp = HttpResponse(content=metadata, content_type='text/xml')
-#     else:
-#         resp = HttpResponseServerError(content=', '.join(errors))
-#     return resp
