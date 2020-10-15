@@ -1,6 +1,0 @@
-# Local development dependencies go here
--r base.txt
-
-https://github.com/spid-django-hack17/spid-django/archive/master.zip
-
-

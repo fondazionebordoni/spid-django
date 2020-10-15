@@ -96,9 +96,10 @@ TEMPLATES = [
     },
 ]
 
-SPID_SP_DOMAIN = "https://spid.hackaton.it:8000"
-SPID_SERVICE_NAME = "spid.hackaton.it:8000"
-SPID_SERVICE_DESCRIPTION = "description"
-SPID_REQUESTED_ATTRIBUTES = ['name', 'familyName', 'fiscalNumber']
+SPID_SP_ENTITY_ID = "https://spid.test.it"
+SPID_SP_ASSERTION_CONSUMER_SERVICE = "http://spid.test.it:8000/spid/attributes-consumer/"
+SPID_SP_SINGLE_LOGOUT_SERVICE = "http://spid.test.it:8000/spid/sls-logout/"
+SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
+SPID_SP_SERVICE_NAME = "spid.test.it:8000"
 SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
 SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')

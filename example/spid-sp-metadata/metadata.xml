@@ -1,0 +1,60 @@
+<md:EntityDescriptor
+    entityID="https://spid.test.it"
+    ID="_7411fddf-0246-4395-be7f-833b6349eda0"
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:spid="https://spid.gov.it/saml-extensions">
+    <md:SPSSODescriptor 
+        AuthnRequestsSigned="true" 
+        WantAssertionsSigned="true" 
+        protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIClDCCAf2gAwIBAgIBADANBgkqhkiG9w0BAQ0FADBnMQswCQYDVQQGEwJpdDELMAkGA1UECAwCUk0xHzAdBgNVBAoMFkZvbmRhemlvbmUgVWdvIEJvcmRvbmkxGzAZBgNVBAMMEnJlZ29wcG9wd2ViLmZ1Yi5pdDENMAsGA1UEBwwEUk9NQTAeFw0yMDEwMTIwNzE4MzRaFw0yMTEwMTIwNzE4MzRaMGcxCzAJBgNVBAYTAml0MQswCQYDVQQIDAJSTTEfMB0GA1UECgwWRm9uZGF6aW9uZSBVZ28gQm9yZG9uaTEbMBkGA1UEAwwScmVnb3Bwb3B3ZWIuZnViLml0MQ0wCwYDVQQHDARST01BMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDb9c7LFHAznJB/6Rj60lU0FE9o23kIYcH6/zMIZMUBZjsqKrKLC38VG6GBXwiGy3nSQAU3p/5w0KREexBQw5enhv71J8avdbVeC1Df7RSNoi3fetfwoRqtdlnPFfmTbgMBfS3z5ljrklTq9dJteAKR3J+KMJBk4AiEX2ZJqB+nowIDAQABo1AwTjAdBgNVHQ4EFgQUBogWp9SJT/WRDd5ltxAeuAHH7powHwYDVR0jBBgwFoAUBogWp9SJT/WRDd5ltxAeuAHH7powDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQ0FAAOBgQAl5reEChsEBYcNdTSoXpVq5yZMNKsAfmnC4MTi1QKBew/xmlZWwvooJrj6bmyh6vsLpTWnbWufQWp3G1RzXOaAxFoSfM9cywUDWlaWUdTadQ1wKrwDfJmpZidXQWRBtkyijkXk/LjAHDqug3BtB6kNCnb7j1pxyk1p7Cb28tHxNQ==</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:SingleLogoutService 
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+            Location="http://spid.test.it:8000/spid/sls-logout/"/>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        <md:AssertionConsumerService 
+            index="0"
+            isDefault="true"
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+            Location="http://spid.test.it:8000/spid/attributes-consumer/" />
+        <md:AssertionConsumerService 
+            index="1"
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+            Location="http://altroservizio.test.it/spid/attributes-consumer/" />
+        <md:AttributeConsumingService index="0">
+            <md:ServiceName xml:lang="it">Set 0</md:ServiceName>
+            <md:RequestedAttribute Name="fiscalNumber" isRequired="true"/>
+        </md:AttributeConsumingService>
+        <md:AttributeConsumingService index="1">
+            <md:ServiceName xml:lang="it">Set 1</md:ServiceName>
+            <md:RequestedAttribute Name="fiscalNumber" isRequired="true"/>
+            <md:RequestedAttribute Name="familyName" isRequired="true"/>
+            <md:RequestedAttribute Name="email" isRequired="true"/>
+        </md:AttributeConsumingService>
+    </md:SPSSODescriptor>
+
+    <md:Organization>
+        <md:OrganizationName xml:lang="it">Service Provider Spa</md:OrganizationName>
+        <md:OrganizationDisplayName xml:lang="it">Service Provider Spa</md:OrganizationDisplayName>
+        <md:OrganizationURL xml:lang="it">https://www.test.it</md:OrganizationURL>
+    </md:Organization>
+
+    <md:ContactPerson
+    contactType="other"
+    spid:entityType="spid:aggregator">
+    <md:Extensions>
+        <spid:FiscalCode>97201200587</spid:FiscalCode>
+        <spid:Private/>
+    </md:Extensions>
+    <md:Company>Service Provider Spa</md:Company>
+    <md:EmailAddress>info@test.it</md:EmailAddress>
+    <md:TelephoneNumber>+390654801</md:TelephoneNumber>
+    </md:ContactPerson>
+
+</md:EntityDescriptor>
