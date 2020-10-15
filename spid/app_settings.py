@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 
-REQUESTED_ATTRIBUTES = ['name', 'familyName', 'email', 'spidCode']
-
 SPID_IDENTITY_PROVIDERS = [
     ('arubaid', 'Aruba ID'),
     ('infocertid', 'Infocert ID'),
@@ -23,22 +21,23 @@ class AppSettings(object):
 
     @property
     def SP_DOMAIN(self):
-        return self._setting('SPID_SP_DOMAIN', 'https://spid.test.it:8000')
+        return self._setting('SP_DOMAIN', 'https://spid.test.it:8000')
 
     @property
     def SP_ENTITY_ID(self):
-        entity_id = self._setting('SP_ENTITY_ID', '')
-        return '{0}/{1}'.format(self.SP_DOMAIN, entity_id)
+        return self._setting('SP_ENTITY_ID', self.SP_DOMAIN)
 
     @property
     def SP_ASSERTION_CONSUMER_SERVICE(self):
-        assertion_consumer = self._setting('SP_ASSERTION_CONSUMER_SERVICE', 'assertion-consumer')
-        return '{0}/{1}'.format(self.SP_DOMAIN, assertion_consumer)
+        return self._setting('SP_ASSERTION_CONSUMER_SERVICE', '{0}/{1}'.format(self.SP_DOMAIN, 'assertion-consumer'))
 
     @property
     def SP_SINGLE_LOGOUT_SERVICE(self):
-        single_logout = self._setting('SP_SINGLE_LOGOUT_SERVICE', 'single-logout')
-        return '{0}/{1}'.format(self.SP_DOMAIN, single_logout)
+        return self._setting('SP_SINGLE_LOGOUT_SERVICE', '{0}/{1}'.format(self.SP_DOMAIN, 'single-logout'))
+
+    @property
+    def SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX(self):
+        return self._setting('SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX', "1")
 
     @property
     def SERVICE_NAME(self):
@@ -51,10 +50,6 @@ class AppSettings(object):
     @property
     def NAME_FORMAT(self):
         return self._setting('NAME_FORMAT', 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient')
-
-    @property
-    def REQUESTED_ATTRIBUTES(self):
-        return self._setting('REQUESTED_ATTRIBUTES', REQUESTED_ATTRIBUTES)
 
     @property
     def SP_PUBLIC_CERT(self):
@@ -87,10 +82,6 @@ class AppSettings(object):
         return self._setting('XML_SIGNATURE_NAMESPACE', 'http://www.w3.org/2000/09/xmldsig#')
 
     @property
-    def XML_SIGNATURE_NAMESPACE(self):
-        return self._setting('XML_SIGNATURE_NAMESPACE', 'http://www.w3.org/2000/09/xmldsig#')
-
-    @property
     def BINDING_REDIRECT_URN(self):
         return self._setting('BINDING_REDIRECT_URN', 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect')
 
@@ -113,41 +104,22 @@ class AppSettings(object):
     @property
     def extra_settings(self):
         return {
-            "security": {
-                "nameIdEncrypted": True,
-                "authnRequestsSigned": True,
-                "logoutRequestSigned": False,
-                "logoutResponseSigned": False,
-                "signMetadata": False,
-                "wantMessagesSigned": False,
-                "wantAssertionsSigned": False,
-                "wantNameId" : True,
-                "wantNameIdEncrypted": False,
-                "wantAssertionsEncrypted": False,
-                "signatureAlgorithm": "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
-                "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig#sha1",
-                "requestedAuthnContext": [
-                    "https://spid-testenv-identityserver/SpidL2"
-                ]
-            },
-            "contactPerson": {
-                "technical": {
-                    "givenName": "technical_name",
-                    "emailAddress": "technical@example.com"
-                },
-                "support": {
-                    "givenName": "support_name",
-                    "emailAddress": "support@example.com"
+                    "security": {
+                        "nameIdEncrypted": False,
+                        "authnRequestsSigned": True,
+                        "logoutRequestSigned": True,
+                        "logoutResponseSigned": True,
+                        "signMetadata": False,
+                        "wantMessagesSigned": True,
+                        "wantAssertionsSigned": True,
+                        "wantNameId": True,
+                        "wantNameIdEncrypted": False,
+                        "wantAssertionsEncrypted": False,
+                        "signatureAlgorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+                        "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig-more#sha256",
+                        "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
+                    }
                 }
-            },
-            "organization": {
-                "en-US": {
-                    "name": "sp_test",
-                    "displayname": "SP test",
-                    "url": "http://sp.example.com"
-                }
-            }
-        }
 
     @property
     def config(self):
@@ -164,31 +136,10 @@ class AppSettings(object):
                     "url": self.SP_SINGLE_LOGOUT_SERVICE,
                     "binding": self.LOGOUT_BINDING
                 },
-                "attributeConsumingService": {
-                    "serviceName": self.SERVICE_NAME,
-                    "serviceDescription": self.SERVICE_DESCRIPTION,
-                    "requestedAttributes": [
-                        {'name': name, 'isRequired': True}
-                        for name in self.REQUESTED_ATTRIBUTES
-                    ]
-                },
+                "attributeConsumingServiceIndex": self.SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX,
                 "NameIDFormat": self.NAME_FORMAT,
                 "x509cert": self.SP_PUBLIC_CERT,
                 "privateKey": self.SP_PRIVATE_KEY
-            },
-            "idp": {
-                "entityId": "",
-                "singleSignOnService": {
-                    "url": "",
-                    "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
-                },
-                "singleLogoutService": {
-                    "url": "",
-                    "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
-                },
-                "x509cert": (
-                    ""
-                )
             }
         }
         extra_settings = self.extra_settings

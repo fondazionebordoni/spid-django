@@ -51,10 +51,7 @@ class SpidConfig(AppConfig):
     }
 
     @staticmethod
-    def get_saml_settings(idp_id=None):
-        if idp_id is None:
-            return app_settings.config
-        else:
-            saml_settings = dict(app_settings.config)
-            saml_settings.update({'idp': SpidConfig.identity_providers[idp_id]['idp']})
-            return saml_settings
+    def get_saml_settings(idp_id):
+        saml_settings = dict(app_settings.config)
+        saml_settings.update({'idp': SpidConfig.identity_providers[idp_id]['idp']})
+        return saml_settings

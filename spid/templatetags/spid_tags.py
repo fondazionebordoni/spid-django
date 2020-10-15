@@ -19,8 +19,6 @@ def spid_button(context, size='medium'):
         for k, v in SpidConfig.identity_providers.items()
     ]
     random.shuffle(spid_idp_list)
-    if settings.DEBUG:
-        spid_idp_list.append({'id': 'test', 'name': 'test'})
     return {
         'method': context['request'].method.lower(),
         'post_data': context['request'].POST,

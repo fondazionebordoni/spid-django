@@ -28,8 +28,8 @@ def prepare_django_request(request):
     }
     return result
 
-def set_user_authenticated(request):
-    request.session['is_logged_in_spid'] = True
+def set_user_authenticated(request, is_authenticated=False):
+    request.session['is_logged_in_spid'] = is_authenticated
 
 def is_user_authenticated(request):
     try:
@@ -60,10 +60,7 @@ def init_saml_auth(request, idp):
     config = {
         'request_data': request
     }
-    if idp == 'test':
-        config['old_settings'] = OneLogin_Saml2_Settings(custom_base_path=settings.SAML_FOLDER, sp_validation_only=True)
-    else:
-        config['old_settings'] = SpidConfig.get_saml_settings(idp)
+    config['old_settings'] = SpidConfig.get_saml_settings(idp)
     auth = SpidSaml2Auth(
         **config
     )
