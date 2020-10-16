@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.template import RequestContext
 from django.views.decorators.http import require_POST, require_http_methods
@@ -111,9 +112,16 @@ def attributes_consumer(request):
             ):
                 redirect_to = auth.redirect_to(req["post_data"]["RelayState"])
             return HttpResponseRedirect(redirect_to)
-    if not idp:
-        print("------- ERROR: not IDP in session!")
-    if not request_id:
-        print("------- ERROR: not request_id in session!")
-    print("Session: %s" % (request.session.items()))
-    return HttpResponseServerError()
+        else:
+            error_params = "?errors=%s&error_msg=%s" % (
+                errors,
+                auth.get_last_error_reason(),
+            )
+            return redirect(reverse(settings.SPID_ERROR_PAGE_URL) + error_params)
+    else:
+        if not idp:
+            print("------- ERROR: not IDP in session!")
+        if not request_id:
+            print("------- ERROR: not request_id in session!")
+        # Return to homepage
+        return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)

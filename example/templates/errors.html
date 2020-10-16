@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load spid_tags %}
+
+{% block content %}
+<h4>Errore durante l'autenticazione tramite SPID</h4>
+
+{% if errors %}
+<div class="alert alert-danger" role="alert">
+    <strong>Errors:</strong>
+    <ul class="list-unstyled">
+        {% for err in errors %}
+        <li>{{err}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if error_msg %}
+<p>{{error_msg}}</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Torna alla home</a>
+
+{% endblock %}
