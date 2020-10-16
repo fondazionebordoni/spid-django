@@ -28,3 +28,19 @@ def spid_button(context, size="medium", index="1"):
         "spid_button_size_short": size[0] if size != "xlarge" else size[:2],
         "spid_idp_list": spid_idp_list,
     }
+
+
+@register.inclusion_tag("eid_button.html", takes_context=True)
+def eid_button(context, idp_id="eid_test", size="medium", index="1"):
+    if size not in SPID_BUTTON_SIZES:
+        raise ValueError(
+            "argument 'size': value %r not in %r." % (size, SPID_BUTTON_SIZES)
+        )
+    return {
+        "method": context["request"].method.lower(),
+        "post_data": context["request"].POST,
+        "spid_button_size": size,
+        "index": index,
+        "idp_id": idp_id,
+        "spid_button_size_short": size[0] if size != "xlarge" else size[:2],
+    }

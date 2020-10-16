@@ -1,0 +1,19 @@
+{% load static %}
+
+<!-- AGID - EIDAS IDP BUTTON MEDIUM "ENTER WITH EIDAS" * begin * -->
+<form name="eidas_idp_access" action="#" method="post">
+    <input type="hidden" name="param_001" value="" />
+    <input type="hidden" name="param_002" value="" />
+    <input type="hidden" name="param_003" value="" />
+    <a href="{% url 'spid:login' %}?idp={{ idp_id }}&index={{index}}"
+        class="italia-it-button italia-it-button-size-m button-spid button-eidas"
+        eidas-idp-button="#eidas-idp-button-medium-post" aria-haspopup="false" aria-expanded="false">
+        <span class="italia-it-button-icon">
+            <img src="{% static 'eid/img/ficep-it-eidas-db.svg' %}"
+                onerror="this.src='{% static 'eid/img/ficep-it-eidas-db.svg' %}'; this.onerror=null;" alt="" />
+        </span>
+        <span class="italia-it-button-text">Login with eIDAS</span>
+    </a>
+</form>
+
+<!-- AGID - EIDAS IDP BUTTON MEDIUM "ENTER WITH EIDAS" * end * -->

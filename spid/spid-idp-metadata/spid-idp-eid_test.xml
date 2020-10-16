@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_d3d4cea2017011ebbfb70242ac110002" cacheDuration="P0Y0M30DT0H0M0.000S" entityID="https://sp-proxy.pre.eid.gov.it/spproxy/idpit"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/>
+<ds:Reference URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/>
+<ds:DigestValue>RqRnADjlxo9cJi3RUG9i56vHKdA93Tufzl1tu37xpPfdUw7SqNjXGmnN7U6NVW8xjnA+ZG79rwZg
+pCwGVMdbBQ==</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+WTojmk4jL0MwnNRHeosABQMRLWxI+DfTfZVLiSDLl7RGat6X2MkSYhDV3uPju2j3CrzLc2Oc2LJ6
+KWLdWhW4on9fusW750Se/9d+gQg27kph6EXxmXVBEq5SDDSQke9oQ048IyaTnJwVcmCs126DCeTW
+xuttCj4h4SQqkM9olzQDX7P4uASGaFmQXVXSxaJg8WPgVDoJVUpTTtQS5i0BkzhSlye6R8Be7eQ+
+DnYh+q/Rt3ojSPsH0sT3Rmtm+ALGaTPkg07fj0Lb/fhZzRMSz/LeFXzXoQgM+AwcNKlj6K4a2edn
+2ndX3eVBEx91HTKZXSmW6Odoki1Xvnytly3i1g==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+4RjCDxRCy84T2oxauO+yvuY3sxXxHotClUQ0Ec94vZhecDVEEaM7j2h4CgaV7gPU9w8NtoU1S3/G
+wPeKzKTRg2SIiyOex56ncUAVO/ClkShyS/w+V3tAHsQlWJx5b51WpyzFk552QzHSD0D/C7xt8q+Z
+S0AqdFWk2xvrnFHHrq9I/nKpt9CB3q4L0MlPuQ9EWvLJ8P7cfkw69Jd/JncWMacZkGQoMBuaEOje
+tz+86KZWbHiSzbnGIoZr4TF/p1pf7/JMkzwJQbtwLRTrpjt4EbQ4Xhyw7gmPEhLK4a5n4iPxRusp
+++ZYEJBJGHHkFwf/CFguqgriX6+wEsryDNc6bw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+<ds:X509Data>
+<ds:X509Certificate>
+MIID+DCCAuCgAwIBAgIJAOyLMGckjRLWMA0GCSqGSIb3DQEBCwUAMIGrMQswCQYDVQQGEwJJVDEt
+MCsGA1UECgwkQWdlbnppYSBwZXIgbCdJdGFsaWEgRGlnaXRhbGUgLSBBZ0lEMSwwKgYDVQQLDCNG
+SUNFUCBQcmUtcHJvZHVjdGlvbiBJbmZyYXN0cnVjdHVyZTE/MD0GA1UEAww2UHVibGljIEFkbWlu
+aXN0cmF0aW9uIFNQIFBST1hZIFNBTUwgTWV0YWRhdGEgU2lnbmF0dXJlMB4XDTE4MTAwNTE5NTc0
+OVoXDTI4MTAwMjE5NTc0OVowgasxCzAJBgNVBAYTAklUMS0wKwYDVQQKDCRBZ2VuemlhIHBlciBs
+J0l0YWxpYSBEaWdpdGFsZSAtIEFnSUQxLDAqBgNVBAsMI0ZJQ0VQIFByZS1wcm9kdWN0aW9uIElu
+ZnJhc3RydWN0dXJlMT8wPQYDVQQDDDZQdWJsaWMgQWRtaW5pc3RyYXRpb24gU1AgUFJPWFkgU0FN
+TCBNZXRhZGF0YSBTaWduYXR1cmUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDhGMIP
+FELLzhPajFq477K+5jezFfEei0KVRDQRz3i9mF5wNUQRozuPaHgKBpXuA9T3Dw22hTVLf8bA94rM
+pNGDZIiLI57HnqdxQBU78KWRKHJL/D5Xe0AexCVYnHlvnVanLMWTnnZDMdIPQP8LvG3yr5lLQCp0
+VaTbG+ucUceur0j+cqm30IHergvQyU+5D0Ra8snw/tx+TDr0l38mdxYxpxmQZCgwG5oQ6N63P7zo
+plZseJLNucYihmvhMX+nWl/v8kyTPAlBu3AtFOumO3gRtDheHLDuCY8SEsrhrmfiI/FG6yn75lgQ
+kEkYceQXB/8IWC6qCuJfr7ASyvIM1zpvAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQD
+AgbAMA0GCSqGSIb3DQEBCwUAA4IBAQAixTJtiM1Cy1YeT4V+dR9xqBpJYteLnD9z/R7GmYK5m+6g
+Kxi5IZFZbZghMQ0pVNpaSwPDsf4/2TaChCtGwFl/RWf7ekM9xKsbaHBeJXE4Ap/t2SiEle89cApo
+pMFGwVZ8/VVSybWYVxjw7Y21vzr4aoc7VXzcd4PGo0M6E0t2OkEIhSekxFE6wvplIsaJAK7fSTNe
+tZZHVeriKP0tBXlslnk3rZJQNm7uy3JS35BWxw9RCLlpycIRxwAZrWhfAjYfF2VMHBJaUpsieS2u
+tqVVAr7fWAIZk8+UJhsJ7Kb+IuRgbDX3BCUtNwvTVn6aREN+6U2pyId0dqmdCrse/Uq7
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</ds:Signature>
+<md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+<md:KeyDescriptor use="signing">
+<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:X509Data>
+<ds:X509Certificate>MIID5jCCAs6gAwIBAgIJAMdGesB+oDZTMA0GCSqGSIb3DQEBCwUAMIGiMQswCQYDVQQGEwJJVDEtMCsGA1UECgwkQWdlbnppYSBwZXIgbCdJdGFsaWEgRGlnaXRhbGUgLSBBZ0lEMSwwKgYDVQQLDCNGSUNFUCBQcmUtcHJvZHVjdGlvbiBJbmZyYXN0cnVjdHVyZTE2MDQGA1UEAwwtUHVibGljIEFkbWluaXN0cmF0aW9uIFNQIFBST1hZIFNBTUwgU2lnbmF0dXJlMB4XDTE4MTAwOTEyMzg1NVoXDTI4MTAwNjEyMzg1NVowgaIxCzAJBgNVBAYTAklUMS0wKwYDVQQKDCRBZ2VuemlhIHBlciBsJ0l0YWxpYSBEaWdpdGFsZSAtIEFnSUQxLDAqBgNVBAsMI0ZJQ0VQIFByZS1wcm9kdWN0aW9uIEluZnJhc3RydWN0dXJlMTYwNAYDVQQDDC1QdWJsaWMgQWRtaW5pc3RyYXRpb24gU1AgUFJPWFkgU0FNTCBTaWduYXR1cmUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCpTyTonxVSBJb/jBn3+iZVdsbOisU2llG6VE730YS4MYNXhMYeOY7KVhYoVZSGlghYBTUBSRtTvuemRp4P6tYQAnJ3eaplielnMrSp6Ok/HuBVra9+UBf0KRscOuJSsmg5ywVl/4nvLjrkDmR6t37J7DF39cPlgNyZMG/ibXbjz3cSSCKsvhfJYY+aanpNCsWw/0mp4BIRq3rt1Wgdm1tpVLDysDn2ha7i4HGgZIQf74T0iSFJ7A+oYu+otXe2SqTQysIKfqYTgn0NJcjhOeewrjLO0KvNVUn+DKPtHnsn1pT8k85OXHH2mcuFUQgo5xRucA/2TeQMXXv8v1wg4vFBAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBCwUAA4IBAQAHEwmp5DCLVupL46HP9kAZKdA7xU6LTGCpfbk00ybJaNCgjFVtNvuv9ay4w5RReRv9QqzCyqmZcFEyF6KYJT4SsPXo+qRXHd+DVt9FqxIF+nkSq4K1ZSnXajFaUBTkOxysmKpg9a0WFEK4wQg2X9Exj/PQzk7MqO35Jwel9IkBEZG/1AxnTKsa++7GAt29+dU9CA4Jn1DzT5A/bUGsDGv9RtTsM8dqtPycIoTp/0MKxDdOOqug4GhGBMXssVCRoQC70DaQwh1zZD2xY0cSSkp0x+X1LQt7WViO18/fdVbmrBVLR8/Jzrh64gsqv+hs2ehMMD4H3gxJoIOyKY7rTj/9</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</md:KeyDescriptor>
+<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://sp-proxy.pre.eid.gov.it/spproxy/samlslo" ResponseLocation="https://sp-proxy.pre.eid.gov.it/spproxy/samlslo"/>
+<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://sp-proxy.pre.eid.gov.it/spproxy/samlslo" ResponseLocation="https://sp-proxy.pre.eid.gov.it/spproxy/samlslo"/>
+<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://sp-proxy.pre.eid.gov.it/spproxy/samlsso"/>
+<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://sp-proxy.pre.eid.gov.it/spproxy/samlsso"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Domicilio fisico" Name="address"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Ragione o denominazione sociale" Name="companyName"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Provincia di nascita" Name="countyOfBirth"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Data di nascita" Name="dateOfBirth"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Domicilio digitale" Name="digitalAddress"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Indirizzo di posta elettronica" Name="email"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Data di scadenza identita" Name="expirationDate"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Cognome" Name="familyName"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Codice fiscale" Name="fiscalNumber"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Sesso" Name="gender"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Documento d'identita" Name="idCard"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Partita IVA" Name="ivaCode"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Numero di telefono mobile" Name="mobilePhone"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Nome" Name="name"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Luogo di nascita" Name="placeOfBirth"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Sede legale" Name="registeredOffice"/>
+<saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" FriendlyName="Codice identificativo SPID" Name="spidCode"/>
+</md:IDPSSODescriptor>
+<md:Organization>
+<md:OrganizationName xml:lang="it">Agenzia per l'Italia Digitale - AgID</md:OrganizationName>
+<md:OrganizationName xml:lang="en">Agenzia per l'Italia Digitale - AgID</md:OrganizationName>
+<md:OrganizationName xml:lang="fr">Agenzia per l'Italia Digitale - AgID</md:OrganizationName>
+<md:OrganizationName xml:lang="de">Agenzia per l'Italia Digitale - AgID</md:OrganizationName>
+<md:OrganizationDisplayName xml:lang="it">Agenzia per l'Italia Digitale - AgID</md:OrganizationDisplayName>
+<md:OrganizationDisplayName xml:lang="en">Agenzia per l'Italia Digitale - AgID</md:OrganizationDisplayName>
+<md:OrganizationDisplayName xml:lang="fr">Agenzia per l'Italia Digitale - AgID</md:OrganizationDisplayName>
+<md:OrganizationDisplayName xml:lang="de">Agenzia per l'Italia Digitale - AgID</md:OrganizationDisplayName>
+<md:OrganizationURL xml:lang="it">https://www.agid.gov.it</md:OrganizationURL>
+<md:OrganizationURL xml:lang="en">https://www.agid.gov.it/en</md:OrganizationURL>
+<md:OrganizationURL xml:lang="fr">https://www.agid.gov.it/fr</md:OrganizationURL>
+<md:OrganizationURL xml:lang="de">https://www.agid.gov.it/de</md:OrganizationURL>
+</md:Organization>
+</md:EntityDescriptor>
