@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.template import RequestContext
 from django.views.generic import TemplateView
-from spid.utils import is_user_authenticated
 from .settings import BASE_DIR
 
 class IndexView(TemplateView):
@@ -14,7 +13,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['is_logged_in'] =  is_user_authenticated(self.request)
+        context['is_logged_in'] =  ('samlUserdata' in self.request.session)
         return context
 
 class AttrsView(TemplateView):
@@ -25,11 +24,13 @@ class AttrsView(TemplateView):
         context = super().get_context_data(**kwargs)
         paint_logout = False
         attributes = False
+        is_logged_in = False
         if 'samlUserdata' in request.session:
+            is_logged_in = True
             paint_logout = True
             if len(request.session['samlUserdata']) > 0:
                 attributes = request.session['samlUserdata'].items()
-        context['is_logged_in'] = is_user_authenticated(self.request)
+        context['is_logged_in'] = is_logged_in
         context['paint_logout'] = paint_logout
         context['attributes'] = attributes
         return context
