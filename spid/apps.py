@@ -59,8 +59,9 @@ class SpidConfig(AppConfig):
     }
 
     @staticmethod
-    def get_saml_settings(idp_id, attr_cons_index):
+    def get_saml_settings(idp_id, attr_cons_index=None):
         saml_settings = dict(app_settings.config)
         saml_settings.update({"idp": SpidConfig.identity_providers[idp_id]["idp"]})
-        saml_settings["sp"]["attributeConsumingServiceIndex"] = attr_cons_index
+        if attr_cons_index:
+            saml_settings["sp"]["attributeConsumingServiceIndex"] = attr_cons_index
         return saml_settings
