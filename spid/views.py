@@ -6,12 +6,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.template import RequestContext
 from django.views.decorators.http import require_POST, require_http_methods
-from .utils import (
-    init_saml_auth,
-    prepare_django_request,
-    set_user_authenticated,
-    is_user_authenticated,
-)
+from .utils import init_saml_auth, prepare_django_request
 from onelogin.saml2.settings import OneLogin_Saml2_Settings
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
 
@@ -20,7 +15,7 @@ def login(request):
     """
     Handle login action ( SP -> IDP )
     """
-    if is_user_authenticated(request):
+    if "samlUserdata" in request.session:
         return HttpResponseRedirect("/")
     req = prepare_django_request(request)
     if "idp" in req["get_data"]:
@@ -108,7 +103,6 @@ def attributes_consumer(request):
             request.session["samlUserdata"] = user_attributes
             request.session["samlNameId"] = auth.get_nameid()
             request.session["samlSessionIndex"] = auth.get_session_index()
-            set_user_authenticated(request, True)
             redirect_to = "/"
             if (
                 "RelayState" in req["post_data"]
