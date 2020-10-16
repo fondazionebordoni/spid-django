@@ -7,3 +7,4 @@ venv/
 .DS_Store
 saml/.DS_Store
 __pycache__/
+example/db.sqlite3
