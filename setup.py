@@ -5,7 +5,7 @@ setup(
     packages=find_packages(exclude='example'),
     include_package_data=True,
     zip_safe=False,
-    version='0.0.2',
+    version='0.1.0',
     description='Spid authentication app for django',
     author='Marco Federighi',
     author_email='federighi.marco@gmail.com',

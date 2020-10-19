@@ -59,9 +59,7 @@ def slo_logout(request):
                 nq=idp_name_qualifier,
             )
         request.session["request_id"] = auth.get_last_request_id()
-        return HttpResponseRedirect(
-            redirect_url
-        )
+        return HttpResponseRedirect(redirect_url)
     else:
         if not idp:
             print("------- ERROR: not IDP in session!")
@@ -78,22 +76,37 @@ def sls_logout(request):
     """
     req = prepare_django_request(request)
     idp = request.session.get("idp")
-    if idp:
+    request_id = request.session.get("request_id")
+    if idp and request_id:
         auth = init_saml_auth(req, idp)
         # TODO maybe just remove the SPID data from the session
         # TODO the callback is not being called!
         dscb = lambda: request.session.flush()
-        url = auth.process_slo(delete_session_cb=dscb)
+        url = auth.process_slo(delete_session_cb=dscb, request_id=request_id)
         errors = auth.get_errors()
         if len(errors) > 0:
-            return HttpResponseServerError(errors)
+            # Redirect to error page
+            error_params = "?errors=%s&error_msg=%s" % (
+                errors,
+                auth.get_last_error_reason(),
+            )
+            return redirect(reverse(settings.SPID_ERROR_PAGE_URL) + error_params)
+        # If there was no error, logout the user and redirect him/her to the homepage (or whather URL was selected)
         redirect_to = "/"
         if url is not None:
             redirect_to = url
         else:
             django_logout(request)
         return HttpResponseRedirect(redirect_to)
-    return HttpResponseServerError()
+    else:
+        if not idp:
+            print("------- ERROR: not IDP in session!")
+        if idp not in settings.SPID_IDP_NAME_QUALIFIERS.keys():
+            print("------- ERROR: bad IDP value! '%s'" % (idp))
+        if not request_id:
+            print("------- ERROR: no request ID!")
+        # Return to homepage
+        return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)
 
 
 def attributes_consumer(request):
