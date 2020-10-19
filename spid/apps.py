@@ -9,43 +9,48 @@ from .app_settings import app_settings
 
 
 def get_idp_config(id, name=None):
-    #xml_path = pkg_resources.resource_filename('spid', 'spid-idp-metadata/spid-idp-%s.xml' % id)
     xml_path = os.path.join(app_settings.IDP_METADATA_DIR, 'spid-idp-%s.xml' % id)
     idp_metadata = et.parse(xml_path).getroot()
-    sso_path = './/{%s}SingleSignOnService[@Binding="%s"]' % \
-               (app_settings.SAML_METADATA_NAMESPACE, app_settings.BINDING_REDIRECT_URN)
-    slo_path = './/{%s}SingleLogoutService[@Binding="%s"]' % \
-               (app_settings.SAML_METADATA_NAMESPACE, app_settings.BINDING_REDIRECT_URN)
+    sso_path = './/{%s}SingleSignOnService[@Binding="%s"]' % (
+        app_settings.SAML_METADATA_NAMESPACE,
+        app_settings.BINDING_REDIRECT_URN,
+    )
+    slo_path = './/{%s}SingleLogoutService[@Binding="%s"]' % (
+        app_settings.SAML_METADATA_NAMESPACE,
+        app_settings.BINDING_REDIRECT_URN,
+    )
 
     try:
-        sso_location = idp_metadata.find(sso_path).attrib['Location']
+        sso_location = idp_metadata.find(sso_path).attrib["Location"]
     except (KeyError, AttributeError) as err:
         raise ValueError("Missing metadata SingleSignOnService for %r: %r" % (id, err))
 
     try:
-        slo_location = idp_metadata.find(slo_path).attrib['Location']
+        slo_location = idp_metadata.find(slo_path).attrib["Location"]
     except (KeyError, AttributeError) as err:
         raise ValueError("Missing metadata SingleLogoutService for %r: %r" % (id, err))
 
     return {
-        'name': name,
-        'idp': {
+        "name": name,
+        "idp": {
             "entityId": idp_metadata.get("entityID"),
             "singleSignOnService": {
                 "url": sso_location,
-                "binding": app_settings.BINDING_REDIRECT_URN
+                "binding": app_settings.BINDING_REDIRECT_URN,
             },
             "singleLogoutService": {
                 "url": slo_location,
-                "binding": app_settings.BINDING_REDIRECT_URN
+                "binding": app_settings.BINDING_REDIRECT_URN,
             },
-            "x509cert": idp_metadata.find(".//{%s}X509Certificate" % app_settings.XML_SIGNATURE_NAMESPACE).text
-        }
+            "x509cert": idp_metadata.find(
+                ".//{%s}X509Certificate" % app_settings.XML_SIGNATURE_NAMESPACE
+            ).text,
+        },
     }
 
 
 class SpidConfig(AppConfig):
-    name = 'spid'
+    name = "spid"
     verbose_name = "SPID Authentication"
 
     identity_providers = {
@@ -53,7 +58,9 @@ class SpidConfig(AppConfig):
     }
 
     @staticmethod
-    def get_saml_settings(idp_id):
+    def get_saml_settings(idp_id, attr_cons_index=None):
         saml_settings = dict(app_settings.config)
-        saml_settings.update({'idp': SpidConfig.identity_providers[idp_id]['idp']})
+        saml_settings.update({"idp": SpidConfig.identity_providers[idp_id]["idp"]})
+        if attr_cons_index:
+            saml_settings["sp"]["attributeConsumingServiceIndex"] = attr_cons_index
         return saml_settings
