@@ -8,7 +8,9 @@ SPID_IDENTITY_PROVIDERS = [
     ('posteid', 'Poste ID'),
     ('sielteid', 'Sielte ID'),
     ('spiditalia', 'SPIDItalia Register.it'),
-    ('timid', 'Tim ID')
+    ('timid', 'Tim ID'),
+    ('eid_test', "Nodo eIDAS Italian - QA"),
+    ('eid_prod', "Nodo eIDAS Italian"),
 ]
 
 class AppSettings(object):
