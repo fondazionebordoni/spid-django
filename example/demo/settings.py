@@ -119,6 +119,26 @@ if config.get("spid", "IDPS"):
         idp = tuple(add_idp.split(";"))
         SPID_IDENTITY_PROVIDERS.append(idp)
 
+SPID_IDP_NAME_QUALIFIERS = {
+    'arubaid': 'https://loginspid.aruba.it',
+    'infocertid': 'https://identity.infocert.it',
+    'namirialid': 'https://idp.namirialtsp.com/idp',
+    'posteid': 'https://posteid.poste.it',
+    'sielteid': 'https://identity.sieltecloud.it',
+    'spiditalia': 'https://spid.register.it',
+    'timid': 'https://login.id.tim.it/affwebservices/public/saml2sso',
+    'eid_test': "https://sp-proxy.pre.eid.gov.it/spproxy/idpit",
+    'eid_prod': "https://sp-proxy.eid.gov.it/spproxy/idpit",
+}
+
+
+if config.get("spid", "IDPS_NQ"):
+    additional_idps = config.get("spid", "IDPS_NQ").split("|")
+    for add_idp in additional_idps:
+        idp = add_idp.split(";")
+        SPID_IDP_NAME_QUALIFIERS[idp[0]]=idp[1]
+
+
 SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, 'spid-idp-metadata')
 SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
 SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')

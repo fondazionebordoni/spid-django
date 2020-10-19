@@ -41,7 +41,7 @@ def slo_logout(request):
     """
     req = prepare_django_request(request)
     idp = request.session.get("idp")
-    if idp:
+    if idp and idp in settings.SPID_IDP_NAME_QUALIFIERS.keys():
         auth = init_saml_auth(req, idp)
         name_id = None
         session_index = None
@@ -49,15 +49,26 @@ def slo_logout(request):
             name_id = request.session["samlNameId"]
         if "samlSessionIndex" in request.session:
             session_index = request.session["samlSessionIndex"]
-        return HttpResponseRedirect(
-            auth.logout(
+        idp_name_qualifier = settings.SPID_IDP_NAME_QUALIFIERS[idp]
+        redirect_url = auth.logout(
                 name_id=name_id,
                 session_index=session_index,
                 # TODO capire come deve essere
-                nq="dummyvalue",
+                # Da regole tecniche: NameQualifier che qualifica il dominio a cui afferisce tale valore 
+                # (URI riconducibile alla stessa entità emittente) => va bene l'entityID?;
+                nq=idp_name_qualifier,
             )
+        request.session["request_id"] = auth.get_last_request_id()
+        return HttpResponseRedirect(
+            redirect_url
         )
-    return HttpResponseServerError()
+    else:
+        if not idp:
+            print("------- ERROR: not IDP in session!")
+        if idp not in settings.SPID_IDP_NAME_QUALIFIERS.keys():
+            print("------- ERROR: bad IDP value! '%s'" % (idp))
+        # Return to homepage
+        return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)
 
 
 def sls_logout(request):
