@@ -104,6 +104,10 @@ class AppSettings(object):
         return self._setting('EXTRA_SETTINGS', {})
 
     @property
+    def IS_BEHIND_PROXY(self):
+        return self._setting('IS_BEHIND_PROXY', False)
+
+    @property
     def config(self):
         config = {
             "strict": self.STRICT_CONFIG,
