@@ -1,0 +1,7 @@
+[spid]
+SPID_SP_ENTITY_ID:https://demospid.fub.it
+SPID_SP_ASSERTION_CONSUMER_SERVICE:http://demospid.fub.it:8000/spid/attributes-consumer/
+SPID_SP_SINGLE_LOGOUT_SERVICE:http://demospid.fub.it:8000/spid/sls-logout/
+SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX:0
+SPID_SP_SERVICE_NAME:demospid.fub.it:8000
+IDPS:test;IDP FUB TEST 

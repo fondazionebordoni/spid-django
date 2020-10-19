@@ -1,5 +1,5 @@
 <md:EntityDescriptor
-    entityID="https://spid.fub.it"
+    entityID="https://demospid.fub.it"
     ID="_7411fddf-0246-4395-be7f-833b6349eda0"
     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
     xmlns:spid="https://spid.gov.it/saml-extensions">
@@ -16,13 +16,13 @@
         </md:KeyDescriptor>
         <md:SingleLogoutService 
             Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-            Location="http://spid.fub.it:8000/spid/sls-logout/"/>
+            Location="http://demospid.fub.it:8000/spid/sls-logout/"/>
         <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
         <md:AssertionConsumerService 
             index="0"
             isDefault="true"
             Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-            Location="http://spid.fub.it:8000/spid/attributes-consumer/" />
+            Location="http://demospid.fub.it:8000/spid/attributes-consumer/" />
         <md:AssertionConsumerService 
             index="1"
             Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 

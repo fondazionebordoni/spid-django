@@ -10,8 +10,12 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import configparser
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+config = configparser.ConfigParser()
+config.read(os.path.join(BASE_DIR, "settings.conf"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -108,14 +112,22 @@ SPID_IDENTITY_PROVIDERS = [
     ('eid_test', "Nodo eIDAS Italian - QA"),
     ('eid_prod', "Nodo eIDAS Italian"),
 ]
+
+if config.get("spid", "IDPS"):
+    additional_idps = config.get("spid", "IDPS").split("|")
+    for add_idp in additional_idps:
+        idp = tuple(add_idp.split(";"))
+        SPID_IDENTITY_PROVIDERS.append(idp)
+
 SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, 'spid-idp-metadata')
-SPID_SP_ENTITY_ID = "https://spid.test.it"
-SPID_SP_ASSERTION_CONSUMER_SERVICE = "http://spid.test.it:8000/spid/attributes-consumer/"
-SPID_SP_SINGLE_LOGOUT_SERVICE = "http://spid.test.it:8000/spid/sls-logout/"
-SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
-SPID_SP_SERVICE_NAME = "spid.test.it:8000"
 SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
 SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')
+
+SPID_SP_ENTITY_ID = config.get("spid", "SPID_SP_ENTITY_ID")
+SPID_SP_ASSERTION_CONSUMER_SERVICE = config.get("spid", "SPID_SP_ASSERTION_CONSUMER_SERVICE")
+SPID_SP_SINGLE_LOGOUT_SERVICE = config.get("spid", "SPID_SP_SINGLE_LOGOUT_SERVICE")
+# SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
+SPID_SP_SERVICE_NAME = config.get("spid", "SPID_SP_SERVICE_NAME")
 
 SPID_BAD_REQUEST_REDIRECT_PAGE = "index"
 

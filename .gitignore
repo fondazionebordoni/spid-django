@@ -8,3 +8,9 @@ venv/
 saml/.DS_Store
 __pycache__/
 example/db.sqlite3
+example/settings.conf
+example/saml/spid-sp-metadata/metadata.xml
+example/saml/certs/sp.csr
+example/saml/certs/sp.crt
+example/saml/certs/sp.key
+example/saml/spid-idp-metadata/spid-idp-test.xml
