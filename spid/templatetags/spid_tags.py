@@ -10,7 +10,7 @@ SPID_BUTTON_SIZES = {"small", "medium", "large", "xlarge"}
 
 
 @register.inclusion_tag("spid_button.html", takes_context=True)
-def spid_button(context, size="medium", index="1"):
+def spid_button(context, size="medium", index="0"):
     if size not in SPID_BUTTON_SIZES:
         raise ValueError(
             "argument 'size': value %r not in %r." % (size, SPID_BUTTON_SIZES)

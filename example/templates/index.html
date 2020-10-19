@@ -31,9 +31,8 @@
 {% if is_logged_in %}
 <a href="{% url "spid:slo-logout" %}" class="btn btn-danger">Logout</a>
 {% else %}
-{% spid_button 'medium' '1' %}
+{% spid_button 'medium' '0' %}
 {% eid_button 'eid_test' 'medium' '99' %}
-
 {% endif %}
 
 {% endblock %}

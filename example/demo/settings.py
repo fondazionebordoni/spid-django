@@ -97,14 +97,45 @@ TEMPLATES = [
     },
 ]
 
-SPID_SP_ENTITY_ID = "https://spid.fub.it"
-SPID_SP_ASSERTION_CONSUMER_SERVICE = "http://spid.fub.it:8000/spid/attributes-consumer/"
-SPID_SP_SINGLE_LOGOUT_SERVICE = "http://spid.fub.it:8000/spid/sls-logout/"
+SPID_IDENTITY_PROVIDERS = [
+    ('arubaid', 'Aruba ID'),
+    ('infocertid', 'Infocert ID'),
+    ('namirialid', 'Namirial ID'),
+    ('posteid', 'Poste ID'),
+    ('sielteid', 'Sielte ID'),
+    ('spiditalia', 'SPIDItalia Register.it'),
+    ('timid', 'Tim ID'),
+    ('eid_test', "Nodo eIDAS Italian - QA"),
+    ('eid_prod', "Nodo eIDAS Italian"),
+]
+SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, 'spid-idp-metadata')
+SPID_SP_ENTITY_ID = "https://spid.test.it"
+SPID_SP_ASSERTION_CONSUMER_SERVICE = "http://spid.test.it:8000/spid/attributes-consumer/"
+SPID_SP_SINGLE_LOGOUT_SERVICE = "http://spid.test.it:8000/spid/sls-logout/"
 SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
-SPID_SP_SERVICE_NAME = "spid.fub.it:8000"
-SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, "saml/certs/sp.crt")
-SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, "saml/certs/sp.key")
+SPID_SP_SERVICE_NAME = "spid.test.it:8000"
+SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
+SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')
 
+SPID_BAD_REQUEST_REDIRECT_PAGE = "index"
 
 SPID_ERROR_PAGE_URL = "errors"
-SPID_BAD_REQUEST_REDIRECT_PAGE = "index"
+
+SPID_EXTRA_SETTINGS = \
+    {
+        "security": {
+            "nameIdEncrypted": False,
+            "authnRequestsSigned": True,
+            "logoutRequestSigned": True,
+            "logoutResponseSigned": True,
+            "signMetadata": False,
+            "wantMessagesSigned": True,
+            "wantAssertionsSigned": True,
+            "wantNameId": True,
+            "wantNameIdEncrypted": False,
+            "wantAssertionsEncrypted": False,
+            "signatureAlgorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+            "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig-more#sha256",
+            "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
+        }
+    }

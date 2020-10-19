@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 import pkg_resources
+import os
 from xml.etree import ElementTree as et
 from django.conf import settings
 from django.apps import AppConfig
 
-from .app_settings import SPID_IDENTITY_PROVIDERS, app_settings
+from .app_settings import app_settings
 
 
 def get_idp_config(id, name=None):
-    xml_path = pkg_resources.resource_filename(
-        "spid", "spid-idp-metadata/spid-idp-%s.xml" % id
-    )
+    xml_path = os.path.join(app_settings.IDP_METADATA_DIR, 'spid-idp-%s.xml' % id)
     idp_metadata = et.parse(xml_path).getroot()
     sso_path = './/{%s}SingleSignOnService[@Binding="%s"]' % (
         app_settings.SAML_METADATA_NAMESPACE,
@@ -55,7 +54,7 @@ class SpidConfig(AppConfig):
     verbose_name = "SPID Authentication"
 
     identity_providers = {
-        id: get_idp_config(id, name) for id, name in SPID_IDENTITY_PROVIDERS
+        id: get_idp_config(id, name) for id, name in app_settings.IDENTITY_PROVIDERS
     }
 
     @staticmethod
