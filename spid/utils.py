@@ -28,7 +28,6 @@ def prepare_django_request(request):
             result["https"] = "off"
         result["http_host"] = request.META["HTTP_X_FORWARDED_HOST"]
         result["server_port"] = request.META["HTTP_X_FORWARDED_PORT"]
-    }
     return result
 
 
