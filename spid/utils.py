@@ -21,7 +21,7 @@ def prepare_django_request(request):
         "get_data": request.GET.copy(),
         "post_data": request.POST.copy()
     }
-    if app_settings.IS_BEHIND_PROXY and 'X_FORWARDED_HOST' in request.META:
+    if app_settings.IS_BEHIND_PROXY and 'HTTP_X_FORWARDED_HOST' in request.META:
         if request.META["HTTP_X_FORWARDED_PROTO"] == "https":
             result["https"] = "on"
         else:
