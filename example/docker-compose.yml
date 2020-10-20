@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    command: sh -c 'python manage.py collectstatic --no-input --clear && gunicorn -k gthread --bind :8000 --reload --log-level debug --workers=3 --threads 3 demo.wsgi:application'
+    container_name: web
+
+  nginx:
+    image: nginx:latest
+    container_name: ng
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./conf/:/etc/nginx/
+    depends_on:
+      - web

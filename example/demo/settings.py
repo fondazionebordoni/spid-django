@@ -49,6 +49,8 @@ MIDDLEWARE = (
 
 ROOT_URLCONF = "demo.urls"
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 WSGI_APPLICATION = "demo.wsgi.application"
 
 # Database
@@ -110,7 +112,6 @@ SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, 'spid-idp-metadata')
 SPID_SP_ENTITY_ID = "https://spid.test.it"
 SPID_SP_ASSERTION_CONSUMER_SERVICE = "http://spid.test.it:8000/spid/attributes-consumer/"
 SPID_SP_SINGLE_LOGOUT_SERVICE = "http://spid.test.it:8000/spid/sls-logout/"
-SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
 SPID_SP_SERVICE_NAME = "spid.test.it:8000"
 SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
 SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')
@@ -132,3 +133,7 @@ SPID_EXTRA_SETTINGS = \
             "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
         }
     }
+# Read X-Forwarded headers if present
+SPID_IS_BEHIND_PROXY = False
+SPID_BAD_REQUEST_REDIRECT_PAGE = 'index'
+SPID_ERROR_PAGE_URL = 'errors'
