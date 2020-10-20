@@ -27,7 +27,7 @@ def login(request):
         args = []
         if "next" in req["get_data"]:
             args.append(req["get_data"].get("next"))
-        redirect_url = auth.login(*args)
+        redirect_url = auth.login(return_to = "/spid/spid-login", force_authn=True, *args)
         request.session["request_id"] = auth.get_last_request_id()
         request.session["attr_cons_index"] = attr_cons_index
         return HttpResponseRedirect(redirect_url)
@@ -53,6 +53,7 @@ def slo_logout(request):
         redirect_url = auth.logout(
                 name_id=name_id,
                 session_index=session_index,
+                return_to="/spid/slo-logout/",
                 # TODO capire come deve essere
                 # Da regole tecniche: NameQualifier che qualifica il dominio a cui afferisce tale valore 
                 # (URI riconducibile alla stessa entità emittente) => va bene l'entityID?;
