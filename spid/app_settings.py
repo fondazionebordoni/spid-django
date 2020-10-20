@@ -34,10 +34,6 @@ class AppSettings(object):
         return self._setting('SP_SINGLE_LOGOUT_SERVICE', '{0}/{1}'.format(self.SP_DOMAIN, 'single-logout'))
 
     @property
-    def SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX(self):
-        return self._setting('SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX', "1")
-
-    @property
     def SERVICE_NAME(self):
         return self._setting('SERVICE_NAME', 'spid.test.it:8000')
 
@@ -104,6 +100,10 @@ class AppSettings(object):
         return self._setting('EXTRA_SETTINGS', {})
 
     @property
+    def IS_BEHIND_PROXY(self):
+        return self._setting('IS_BEHIND_PROXY', False)
+
+    @property
     def config(self):
         config = {
             "strict": self.STRICT_CONFIG,
@@ -118,7 +118,6 @@ class AppSettings(object):
                     "url": self.SP_SINGLE_LOGOUT_SERVICE,
                     "binding": self.LOGOUT_BINDING
                 },
-                "attributeConsumingServiceIndex": self.SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX,
                 "NameIDFormat": self.NAME_FORMAT,
                 "x509cert": self.SP_PUBLIC_CERT,
                 "privateKey": self.SP_PRIVATE_KEY

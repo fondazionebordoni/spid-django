@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.shortcuts import redirect, render
 from django.template import RequestContext
 from django.views.generic import TemplateView
-from .settings import BASE_DIR
+from .settings import SAML_FOLDER, SPID_IS_BEHIND_PROXY
 
 
 class IndexView(TemplateView):
@@ -14,6 +14,8 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, **kwargs):
+        if SPID_IS_BEHIND_PROXY and 'HTTP_X_FORWARDED_HOST' in self.request.META:
+            print(self.request.META)
         context = super().get_context_data(**kwargs)
         context["is_logged_in"] = "samlUserdata" in self.request.session
         return context
@@ -43,7 +45,7 @@ def metadata(request):
     """
     Expose SP Metadata
     """
-    metadata_file = os.path.join(BASE_DIR, "spid-sp-metadata", "metadata.xml")
+    metadata_file = os.path.join(SAML_FOLDER, "spid-sp-metadata", "metadata.xml")
     if os.path.exists(metadata_file):
         data = open(metadata_file, "rb")
         response = FileResponse(data, content_type="text/xml")

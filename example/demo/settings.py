@@ -53,6 +53,8 @@ MIDDLEWARE = (
 
 ROOT_URLCONF = "demo.urls"
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 WSGI_APPLICATION = "demo.wsgi.application"
 
 # Database
@@ -171,3 +173,7 @@ SPID_EXTRA_SETTINGS = \
             "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
         }
     }
+# Read X-Forwarded headers if present
+SPID_IS_BEHIND_PROXY = False
+SPID_BAD_REQUEST_REDIRECT_PAGE = 'index'
+SPID_ERROR_PAGE_URL = 'errors'
