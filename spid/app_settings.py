@@ -1,16 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 
-SPID_IDENTITY_PROVIDERS = [
-    ('arubaid', 'Aruba ID'),
-    ('infocertid', 'Infocert ID'),
-    ('namirialid', 'Namirial ID'),
-    ('posteid', 'Poste ID'),
-    ('sielteid', 'Sielte ID'),
-    ('spiditalia', 'SPIDItalia Register.it'),
-    ('timid', 'Tim ID')
-]
-
 class AppSettings(object):
 
     def __init__(self, prefix):
@@ -18,6 +8,14 @@ class AppSettings(object):
 
     def _setting(self, name, default_value):
         return getattr(settings, self.prefix + name, default_value)
+
+    @property
+    def IDP_METADATA_DIR(self):
+        return self._setting('IDP_METADATA_DIR', [])
+
+    @property
+    def IDENTITY_PROVIDERS(self):
+        return self._setting('IDENTITY_PROVIDERS', [])
 
     @property
     def SP_DOMAIN(self):
@@ -34,10 +32,6 @@ class AppSettings(object):
     @property
     def SP_SINGLE_LOGOUT_SERVICE(self):
         return self._setting('SP_SINGLE_LOGOUT_SERVICE', '{0}/{1}'.format(self.SP_DOMAIN, 'single-logout'))
-
-    @property
-    def SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX(self):
-        return self._setting('SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX', "1")
 
     @property
     def SERVICE_NAME(self):
@@ -102,24 +96,12 @@ class AppSettings(object):
         return self._setting('STRICT_CONFIG', True)
 
     @property
-    def extra_settings(self):
-        return {
-                    "security": {
-                        "nameIdEncrypted": False,
-                        "authnRequestsSigned": True,
-                        "logoutRequestSigned": True,
-                        "logoutResponseSigned": True,
-                        "signMetadata": False,
-                        "wantMessagesSigned": True,
-                        "wantAssertionsSigned": True,
-                        "wantNameId": True,
-                        "wantNameIdEncrypted": False,
-                        "wantAssertionsEncrypted": False,
-                        "signatureAlgorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
-                        "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig-more#sha256",
-                        "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
-                    }
-                }
+    def EXTRA_SETTINGS(self):
+        return self._setting('EXTRA_SETTINGS', {})
+
+    @property
+    def IS_BEHIND_PROXY(self):
+        return self._setting('IS_BEHIND_PROXY', False)
 
     @property
     def config(self):
@@ -136,15 +118,13 @@ class AppSettings(object):
                     "url": self.SP_SINGLE_LOGOUT_SERVICE,
                     "binding": self.LOGOUT_BINDING
                 },
-                "attributeConsumingServiceIndex": self.SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX,
                 "NameIDFormat": self.NAME_FORMAT,
                 "x509cert": self.SP_PUBLIC_CERT,
                 "privateKey": self.SP_PRIVATE_KEY
             }
         }
-        extra_settings = self.extra_settings
-        if extra_settings:
-            config.update(extra_settings)
+        if self.EXTRA_SETTINGS:
+            config.update(self.EXTRA_SETTINGS)
         return config
 
 app_settings = AppSettings('SPID_')

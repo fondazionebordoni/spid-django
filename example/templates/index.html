@@ -4,22 +4,22 @@
 {% block content %}
 
 {% if errors %}
-  <div class="alert alert-danger" role="alert">
-    <strong>Errors:</strong>
-    <ul class="list-unstyled">
-        {% for err in errors %}
-          <li>{{err}}</li>
-        {% endfor %}
-    </ul>
-  </div>
+<div class="alert alert-danger" role="alert">
+  <strong>Errors:</strong>
+  <ul class="list-unstyled">
+    {% for err in errors %}
+    <li>{{err}}</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
 
 {% if not_auth_warn %}
-  <div class="alert alert-danger" role="alert">Not authenticated</div>
+<div class="alert alert-danger" role="alert">Not authenticated</div>
 {% endif %}
 
 {% if success_slo %}
-  <div class="alert alert-success" role="alert">Successfully logged out</div>
+<div class="alert alert-success" role="alert">Successfully logged out</div>
 {% endif %}
 
 {% if is_logged_in %}
@@ -29,10 +29,10 @@
 {% endif %}
 
 {% if is_logged_in %}
-  <a href="{% url "spid:slo-logout" %}" class="btn btn-danger">Logout</a>
+<a href="{% url "spid:slo-logout" %}" class="btn btn-danger">Logout</a>
 {% else %}
-{% spid_button 'small' %} {% spid_button 'medium' %}
-{% spid_button 'large' %} {% spid_button 'xlarge' %}
+{% spid_button 'medium'%}
+
 {% endif %}
 
 {% endblock %}
