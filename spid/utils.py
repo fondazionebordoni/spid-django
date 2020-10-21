@@ -3,8 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from .app_settings import app_settings
 from .apps import SpidConfig
-from .saml import SpidSaml2Auth
-
+from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.settings import OneLogin_Saml2_Settings
 
 User = get_user_model()
@@ -53,5 +52,5 @@ def init_saml_auth(request, idp, attr_cons_index=None):
 
     config = {"request_data": request}
     config["old_settings"] = SpidConfig.get_saml_settings(idp, attr_cons_index)
-    auth = SpidSaml2Auth(**config)
+    auth = OneLogin_Saml2_Auth(**config)
     return auth
