@@ -17,3 +17,4 @@ example/saml/certs/sp.csr
 example/saml/certs/sp.crt
 example/saml/certs/sp.key
 example/saml/spid-idp-metadata/spid-idp-test.xml
+example/saml/spid-idp-metadata/spid-idp-samlcheck.xml

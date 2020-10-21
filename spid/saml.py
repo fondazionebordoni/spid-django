@@ -42,6 +42,14 @@ class SpidSaml2LogoutResponse(OneLogin_Saml2_Logout_Response):
 
 class SpidSaml2Auth(OneLogin_Saml2_Auth):
 
+    def get_errors(self):
+        errors = super().get_errors()
+        if not errors:
+            errors = vars(self).get("_SpidSaml2Auth__errors", None)
+        if not errors:
+            errors = vars(self).get("_OneLogin_Saml2_Auth__errors", None)
+        return errors
+
     def process_slo(self, keep_local_session=False, request_id=None, delete_session_cb=None):
         """
         Process the SAML Logout Response / Logout Request sent by the IdP.
@@ -63,9 +71,10 @@ class SpidSaml2Auth(OneLogin_Saml2_Auth):
         if post_data:
             get_data = post_data
             method = 'post'
-        elif get_data and 'SAMLResponse' in get_data:
-            logout_response = SpidSaml2LogoutResponse(self.__settings, get_data['SAMLResponse'], method)
+        if get_data and 'SAMLResponse' in get_data:
+            logout_response = SpidSaml2LogoutResponse(self.get_settings(), get_data['SAMLResponse'], method)
             self._OneLogin_Saml2_Auth__last_response = logout_response.get_xml()
+            self.__request_data = vars(self)["_OneLogin_Saml2_Auth__request_data"]
             if not self.validate_response_signature(get_data):
                 self.__errors.append('invalid_logout_response_signature')
                 self.__errors.append('Signature validation failed. Logout Response rejected')
@@ -80,8 +89,9 @@ class SpidSaml2Auth(OneLogin_Saml2_Auth):
                     OneLogin_Saml2_Utils.delete_local_session(delete_session_cb)
 
         elif get_data and 'SAMLRequest' in get_data:
-            logout_request = OneLogin_Saml2_Logout_Request(self.__settings, get_data['SAMLRequest'])
+            logout_request = OneLogin_Saml2_Logout_Request(self.get_settings(), get_data['SAMLRequest'])
             self._OneLogin_Saml2_Auth__last_request = logout_request.get_xml()
+            self.__request_data = vars(self)["_OneLogin_Saml2_Auth__request_data"]
             if not self.validate_request_signature(get_data):
                 self.__errors.append("invalid_logout_request_signature")
                 self.__errors.append('Signature validation failed. Logout Request rejected')
