@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from .utils import init_saml_auth, prepare_django_request
 from onelogin.saml2.settings import OneLogin_Saml2_Settings
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
+from datetime import datetime, timezone
 
 
 def login(request):
@@ -29,6 +30,7 @@ def login(request):
             args.append(req["get_data"].get("next"))
         redirect_url = auth.login(return_to = "/spid/spid-login", force_authn=True, *args)
         request.session["request_id"] = auth.get_last_request_id()
+        request.session["request_instant"] = datetime.now(timezone.utc).timestamp()
         request.session["attr_cons_index"] = attr_cons_index
         return HttpResponseRedirect(redirect_url)
     return HttpResponseServerError()
@@ -119,10 +121,11 @@ def attributes_consumer(request):
     idp = request.session.get("idp")
     attr_cons_index = request.session.get("attr_cons_index")
     request_id = request.session.get("request_id")
+    request_instant = request.session.get("request_instant")
     if idp and request_id:
         auth = init_saml_auth(req, idp, attr_cons_index)
         errors = []
-        auth.process_response(request_id=request_id)
+        auth.process_response(request_id=request_id, request_instant=request_instant)
         errors = auth.get_errors()
         if not errors:
             user_attributes = auth.get_attributes()
