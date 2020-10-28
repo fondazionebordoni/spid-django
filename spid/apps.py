@@ -53,9 +53,14 @@ class SpidConfig(AppConfig):
     name = "spid"
     verbose_name = "SPID Authentication"
 
-    identity_providers = {
+    identity_providers_spid = {
         id: get_idp_config(id, name) for id, name in app_settings.IDENTITY_PROVIDERS
     }
+
+    identity_providers = identity_providers_spid.copy()
+    identity_providers.update({
+        id: get_idp_config(id, name) for id, name in app_settings.IDENTITY_PROVIDERS_EID
+    })
 
     @staticmethod
     def get_saml_settings(idp_id, attr_cons_index=None):

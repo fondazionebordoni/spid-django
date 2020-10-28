@@ -17,7 +17,7 @@ def spid_button(context, size="medium", index="0"):
         )
 
     spid_idp_list = [
-        {"id": k, "name": v["name"]} for k, v in SpidConfig.identity_providers.items()
+        {"id": k, "name": v["name"]} for k, v in SpidConfig.identity_providers_spid.items()
     ]
     random.shuffle(spid_idp_list)
     return {

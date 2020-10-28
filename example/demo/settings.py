@@ -25,6 +25,7 @@ SECRET_KEY = "0c7216)gs^ne$%3+je20zuo+g0&^6yb@e68qdr!^!r0hmb-6y+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SESSION_COOKIE_SAMESITE = 'None'
 
 ALLOWED_HOSTS = [
     "*",
@@ -111,6 +112,9 @@ SPID_IDENTITY_PROVIDERS = [
     ('sielteid', 'Sielte ID'),
     ('spiditalia', 'SPIDItalia Register.it'),
     ('timid', 'Tim ID'),
+]
+
+SPID_IDENTITY_PROVIDERS_EID = [
     ('eid_test', "Nodo eIDAS Italian - QA"),
     ('eid_prod', "Nodo eIDAS Italian"),
 ]

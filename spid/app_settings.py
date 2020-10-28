@@ -18,6 +18,10 @@ class AppSettings(object):
         return self._setting('IDENTITY_PROVIDERS', [])
 
     @property
+    def IDENTITY_PROVIDERS_EID(self):
+        return self._setting('IDENTITY_PROVIDERS_EID', [])
+
+    @property
     def SP_DOMAIN(self):
         return self._setting('SP_DOMAIN', 'https://spid.test.it:8000')
 
