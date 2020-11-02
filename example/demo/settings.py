@@ -25,11 +25,9 @@ SECRET_KEY = "0c7216)gs^ne$%3+je20zuo+g0&^6yb@e68qdr!^!r0hmb-6y+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = "None"
 
-ALLOWED_HOSTS = [
-    "*",
-]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -101,22 +99,22 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ],
         },
-    },
+    }
 ]
 
 SPID_IDENTITY_PROVIDERS = [
-    ('arubaid', 'Aruba ID'),
-    ('infocertid', 'Infocert ID'),
-    ('namirialid', 'Namirial ID'),
-    ('posteid', 'Poste ID'),
-    ('sielteid', 'Sielte ID'),
-    ('spiditalia', 'SPIDItalia Register.it'),
-    ('timid', 'Tim ID'),
+    ("arubaid", "Aruba ID"),
+    ("infocertid", "Infocert ID"),
+    ("namirialid", "Namirial ID"),
+    ("posteid", "Poste ID"),
+    ("sielteid", "Sielte ID"),
+    ("spiditalia", "SPIDItalia Register.it"),
+    ("timid", "Tim ID"),
 ]
 
 SPID_IDENTITY_PROVIDERS_EID = [
-    ('eid_test', "Nodo eIDAS Italian - QA"),
-    ('eid_prod', "Nodo eIDAS Italian"),
+    ("eid_test", "Nodo eIDAS Italian - QA"),
+    ("eid_prod", "Nodo eIDAS Italian"),
 ]
 
 if config.get("spid", "IDPS"):
@@ -126,15 +124,15 @@ if config.get("spid", "IDPS"):
         SPID_IDENTITY_PROVIDERS.append(idp)
 
 SPID_IDP_NAME_QUALIFIERS = {
-    'arubaid': 'https://loginspid.aruba.it',
-    'infocertid': 'https://identity.infocert.it',
-    'namirialid': 'https://idp.namirialtsp.com/idp',
-    'posteid': 'https://posteid.poste.it',
-    'sielteid': 'https://identity.sieltecloud.it',
-    'spiditalia': 'https://spid.register.it',
-    'timid': 'https://login.id.tim.it/affwebservices/public/saml2sso',
-    'eid_test': "https://sp-proxy.pre.eid.gov.it/spproxy/idpit",
-    'eid_prod': "https://sp-proxy.eid.gov.it/spproxy/idpit",
+    "arubaid": "https://loginspid.aruba.it",
+    "infocertid": "https://identity.infocert.it",
+    "namirialid": "https://idp.namirialtsp.com/idp",
+    "posteid": "https://posteid.poste.it",
+    "sielteid": "https://identity.sieltecloud.it",
+    "spiditalia": "https://spid.register.it",
+    "timid": "https://login.id.tim.it/affwebservices/public/saml2sso",
+    "eid_test": "https://sp-proxy.pre.eid.gov.it/spproxy/idpit",
+    "eid_prod": "https://sp-proxy.eid.gov.it/spproxy/idpit",
 }
 
 
@@ -142,42 +140,44 @@ if config.get("spid", "IDPS_NQ"):
     additional_idps = config.get("spid", "IDPS_NQ").split("|")
     for add_idp in additional_idps:
         idp = add_idp.split(";")
-        SPID_IDP_NAME_QUALIFIERS[idp[0]]=idp[1]
+        SPID_IDP_NAME_QUALIFIERS[idp[0]] = idp[1]
 
 
-SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, 'spid-idp-metadata')
-SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, 'saml/certs/sp.crt')
-SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, 'saml/certs/sp.key')
+SPID_IDP_METADATA_DIR = os.path.join(SAML_FOLDER, "spid-idp-metadata")
+SPID_SP_PUBLIC_CERT = os.path.join(BASE_DIR, "saml/certs/sp.crt")
+SPID_SP_PRIVATE_KEY = os.path.join(BASE_DIR, "saml/certs/sp.key")
 
 SPID_SP_ENTITY_ID = config.get("spid", "SPID_SP_ENTITY_ID")
-SPID_SP_ASSERTION_CONSUMER_SERVICE = config.get("spid", "SPID_SP_ASSERTION_CONSUMER_SERVICE")
+SPID_SP_ASSERTION_CONSUMER_SERVICE = config.get(
+    "spid", "SPID_SP_ASSERTION_CONSUMER_SERVICE"
+)
 SPID_SP_SINGLE_LOGOUT_SERVICE = config.get("spid", "SPID_SP_SINGLE_LOGOUT_SERVICE")
 # SPID_SP_ATTRIBUTE_CONSUMING_SERVICE_INDEX = "0"
 SPID_SP_SERVICE_NAME = config.get("spid", "SPID_SP_SERVICE_NAME")
 
 SPID_BAD_REQUEST_REDIRECT_PAGE = "index"
 
+SPID_POST_LOGIN_URL = "index"
 SPID_ERROR_PAGE_URL = "errors"
 
-SPID_EXTRA_SETTINGS = \
-    {
-        "security": {
-            "nameIdEncrypted": False,
-            "authnRequestsSigned": True,
-            "logoutRequestSigned": True,
-            "logoutResponseSigned": True,
-            "signMetadata": False,
-            "wantMessagesSigned": True,
-            "wantAssertionsSigned": True,
-            "wantNameId": True,
-            "wantNameIdEncrypted": False,
-            "wantAssertionsEncrypted": False,
-            "signatureAlgorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
-            "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig-more#sha256",
-            "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"]
-        }
+SPID_EXTRA_SETTINGS = {
+    "security": {
+        "nameIdEncrypted": False,
+        "authnRequestsSigned": True,
+        "logoutRequestSigned": True,
+        "logoutResponseSigned": True,
+        "signMetadata": False,
+        "wantMessagesSigned": True,
+        "wantAssertionsSigned": True,
+        "wantNameId": True,
+        "wantNameIdEncrypted": False,
+        "wantAssertionsEncrypted": False,
+        "signatureAlgorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+        "digestAlgorithm": "http://www.w3.org/2000/09/xmldsig-more#sha256",
+        "requestedAuthnContext": ["https://www.spid.gov.it/SpidL2"],
     }
+}
 # Read X-Forwarded headers if present
 SPID_IS_BEHIND_PROXY = False
-SPID_BAD_REQUEST_REDIRECT_PAGE = 'index'
-SPID_ERROR_PAGE_URL = 'errors'
+SPID_BAD_REQUEST_REDIRECT_PAGE = "index"
+SPID_ERROR_PAGE_URL = "errors"

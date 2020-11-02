@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from .app_settings import app_settings
 from .apps import SpidConfig
+
 # from .saml import SpidSaml2Auth
 
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
@@ -20,10 +21,10 @@ def prepare_django_request(request):
         "server_port": request.META["SERVER_PORT"],
         "script_name": request.META["PATH_INFO"],
         "get_data": request.GET.copy(),
-        "post_data": request.POST.copy()
+        "post_data": request.POST.copy(),
     }
-    if app_settings.IS_BEHIND_PROXY and 'HTTP_X_FORWARDED_HOST' in request.META:
-        if request.META["HTTP_X_FORWARDED_PROTO"] == "https":
+    if app_settings.IS_BEHIND_PROXY and "HTTP_X_FORWARDED_HOST" in request.META:
+        if request.META.get("HTTP_X_FORWARDED_PROTO", "http") == "https":
             result["https"] = "on"
         else:
             result["https"] = "off"

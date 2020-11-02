@@ -5,7 +5,7 @@ setup(
     packages=find_packages(exclude="example"),
     include_package_data=True,
     zip_safe=False,
-    version="1.0.0",
+    version="1.0.2",
     description="Spid authentication app for django",
     author="Fondazione Ugo Bordoni",
     author_email="sviluppatori-group@fub.it",

@@ -17,8 +17,14 @@ def login(request):
     """
     Handle login action ( SP -> IDP )
     """
+    # Post-login activity
     if "samlUserdata" in request.session:
-        return HttpResponseRedirect("/")
+        after_login_redirect_url = "/"
+        if settings.SPID_POST_LOGIN_URL:
+            after_login_redirect_url = reverse(settings.SPID_POST_LOGIN_URL)
+        return HttpResponseRedirect(after_login_redirect_url)
+
+    # Pre-login
     req = prepare_django_request(request)
     if "idp" in req["get_data"]:
         idp = req["get_data"].get("idp")
@@ -28,12 +34,14 @@ def login(request):
         args = []
         if "next" in req["get_data"]:
             args.append(req["get_data"].get("next"))
-        redirect_url = auth.login(return_to = "/spid/spid-login", force_authn=True, *args)
+        redirect_url = auth.login(return_to="/spid/spid-login", force_authn=True, *args)
         request.session["request_id"] = auth.get_last_request_id()
         request.session["request_instant"] = datetime.now(timezone.utc).timestamp()
         request.session["attr_cons_index"] = attr_cons_index
         return HttpResponseRedirect(redirect_url)
-    return HttpResponseServerError()
+    else:
+        print("------- ERROR: not IDP in session!")
+        return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)
 
 
 def slo_logout(request):
@@ -53,14 +61,14 @@ def slo_logout(request):
             session_index = request.session["samlSessionIndex"]
         idp_name_qualifier = settings.SPID_IDP_NAME_QUALIFIERS[idp]
         redirect_url = auth.logout(
-                name_id=name_id,
-                session_index=session_index,
-                return_to="/spid/slo-logout/",
-                # TODO capire come deve essere
-                # Da regole tecniche: NameQualifier che qualifica il dominio a cui afferisce tale valore 
-                # (URI riconducibile alla stessa entità emittente) => va bene l'entityID?;
-                nq=idp_name_qualifier,
-            )
+            name_id=name_id,
+            session_index=session_index,
+            return_to="/spid/slo-logout/",
+            # TODO capire come deve essere
+            # Da regole tecniche: NameQualifier che qualifica il dominio a cui afferisce tale valore
+            # (URI riconducibile alla stessa entità emittente) => va bene l'entityID?;
+            nq=idp_name_qualifier,
+        )
         request.session["request_id"] = auth.get_last_request_id()
         return HttpResponseRedirect(redirect_url)
     else:
