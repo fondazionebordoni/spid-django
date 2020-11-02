@@ -229,3 +229,13 @@ In caso di errore, la libreria reindirizzerà l'utente alla URL indicata in sett
 ```
 https://interazione.cvcn.it:2000/cvcn/interazione/error?errors=['invalid_response']&error_msg=IssueInstant is either too old or ahead of current date and time.
 ```
+
+# Configurazione del frontend
+
+Qualora il progetto Django sia esposto tramite un frontend (e.g., Apache o Nginx), è necessario aggiungere i seguenti header alle richieste HTTP verso l'applicazione per consentire il corretto funzionamento della libreria spid-django (che vi accederà tramite request.META): HTTP_X_FORWARDED_HOST, HTTP_X_FORWARDED_PROTO, HTTP_X_FORWARDED_PORT.
+Ecco un esempio di configurazione di Apache.
+
+```
+RequestHeader set "X-Forwarded-Proto" "https"
+RequestHeader set "X-Forwarded-Port" "2000"
+```
