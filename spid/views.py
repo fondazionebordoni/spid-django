@@ -4,6 +4,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.template import RequestContext
 from django.views.decorators.http import require_POST, require_http_methods
@@ -80,6 +81,7 @@ def slo_logout(request):
         return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)
 
 
+@csrf_exempt
 def sls_logout(request):
     """
     Logout
@@ -120,6 +122,7 @@ def sls_logout(request):
         return redirect(settings.SPID_BAD_REQUEST_REDIRECT_PAGE)
 
 
+@csrf_exempt
 def attributes_consumer(request):
     """
     Consume attributes from IDP
