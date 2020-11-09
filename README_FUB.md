@@ -3,6 +3,12 @@
 Questa libreria è un fork della libreria spid-django offerta da AgID per l'integrazione di SPID all'interno di progetti Django, ed è basata su un fork della libreria python3-saml anch'esso realizzato dalla Fondazione Ugo Bordoni e disponibile al seguente link: [https://github.com/fondazionebordoni/python3-saml](https://github.com/fondazionebordoni/python3-saml).
 Il fork di questi due progetti è stato effettuato per adeguare la libreria python3-saml alle specifiche più recenti di SPID e per rendere l'integrazione del modulo spid-django più facile da integrare nei progetti Django, oltre a fornire il supporto ad eID che era assente nella versione originale.
 
+
+# Prerequisiti
+La libreria spid-django dipende dalla libreria python3-saml, che dipende a sua volta dalla libreria xmlsec1. Quest'ultima può essere installata tramite il package manager della distribuzione Linux su cui si sta lavorando; alcuni esempi sono riportati di seguito:
+- Ubuntu: sudo apt install libxmlsec1-dev pkg-config
+- Alpine: apk add xmlsec-dev
+
 # Installazione
 
 Le due librerie sono presenti nel PyPI interno della FUB, pertanto possono essere installate con i comandi:
