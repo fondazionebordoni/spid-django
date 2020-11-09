@@ -5,9 +5,9 @@ Il fork di questi due progetti è stato effettuato per adeguare la libreria pyth
 
 
 # Prerequisiti
-La libreria spid-django dipende dalla libreria python3-saml, che dipende a sua volta dalla libreria xmlsec1. Quest'ultima può essere installata tramite il package manager della distribuzione Linux su cui si sta lavorando; alcuni esempi sono riportati di seguito:
-- Ubuntu: sudo apt install libxmlsec1-dev pkg-config
-- Alpine: apk add xmlsec-dev
+La libreria spid-django dipende dalla libreria python3-saml, che dipende a sua volta dalle librerie libxslt-dev e xmlsec1. Quest'ultima può essere installata tramite il package manager della distribuzione Linux su cui si sta lavorando; alcuni esempi sono riportati di seguito:
+- Ubuntu: sudo apt install libxml2-dev libxslt-dev libxmlsec1-dev
+- Alpine: apk add libxml2-dev libxslt-dev xmlsec-dev
 
 # Installazione
 
