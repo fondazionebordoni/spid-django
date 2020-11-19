@@ -105,7 +105,7 @@ def sls_logout(request):
             )
             return redirect(reverse(settings.SPID_ERROR_PAGE_URL) + error_params)
         # If there was no error, logout the user and redirect him/her to the homepage (or whather URL was selected)
-        redirect_to = "/"
+        redirect_to = reverse(settings.SPID_POST_LOGOUT_URL)
         if url is not None:
             redirect_to = url
         else:

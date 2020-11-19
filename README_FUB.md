@@ -134,6 +134,15 @@ SPID_POST_LOGIN_URL = "interazione_app:spid_login"
 
 ```
 
+
+- Aggiungere una variabile SPID_POST_LOGOUT_URL contenente il nome della view a cui l'utente verrà reindirizzato al termine del login.
+
+```
+
+SPID_POST_LOGOUT_URL = "interazione_app:home"
+
+```
+
 - Aggiungere una variabile SPID_ERROR_PAGE_URL contenente il nome della view a cui l'utente verrà reindirizzato nel caso in cui venga rilevato un errore durante lo scambio SAML tra SP ed IDP.
 
 ```
@@ -203,6 +212,16 @@ Il metadata del Service Provider a cui il progetto Django in questione fa riferi
 ## Cartella con le chiavi per firmare le richieste SAML
 
 All'interno della cartella indicata in "SAML_FOLDER" occorre creare una cartella "certs" con le chiavi asimmetriche usare per firmare e verificare le richieste SAML inviate agli IDP (la chiave pubblica deve essere quella indicata nel metadata).
+
+### Aggiunta pulsante SPID/eID ai template
+Per aggiungere i pulsanti di SPID ed eID ad un template, occorre aggiungere il tag ```{% load spid_tags %}``` in cima al template stesso, e poi aggiungere i seguenti tag nel punto che si preferisce:
+```
+<!-- Pulsante SPID -->
+{% spid_button 'medium' '0' %} 
+<!-- Pulsante eID -->
+{% eid_button 'eid_test' 'medium' '99' %}
+```
+In questo esempio, 'medium', indica la dimensione desiderata del pulsante (i valori possibili sono "small", "medium", "large", "xlarge"), mentre il numero che segue indica l'attributeConsumerIndex che si intende utilizzare nella pagina corrente. Si noti come questo valore deve indicare uno degli attributeConsumer indicati nel metadata del proprio servizio, e che gli attributeConsumerIndex relativi ad eID devono essere sempre due aventi come indici 99 e 100 rispettivamente. Per maggiori informazioni, consultare le [Regole Recniche di SPID](https://docs.italia.it/italia/spid/spid-regole-tecniche/it/stabile/index.html) e le [Note per il dispiegamento del LOGIN EIDAS presso le Pubbliche Amministrazioni](https://www.eid.gov.it/assets/download/avviso_eidas/Avviso_eIDAS_01-2018.pdf).
 
 # Processamento della risposta
 
