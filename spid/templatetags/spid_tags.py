@@ -1,3 +1,4 @@
+import json
 import random
 
 from django import template
@@ -44,3 +45,9 @@ def eid_button(context, idp_id="eid_test", size="medium", index="1"):
         "idp_id": idp_id,
         "spid_button_size_short": size[0] if size != "xlarge" else size[:2],
     }
+
+@register.simple_tag
+def idp_list():
+    return json.dumps([
+        {"id": k, "name": v["name"]} for k, v in SpidConfig.identity_providers_spid.items()
+    ])
