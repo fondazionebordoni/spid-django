@@ -7,20 +7,36 @@
     {% endfor %}
     {% endif %}
     <a href="#" class="italia-it-button italia-it-button-size-{{ spid_button_size_short }} button-spid"
-        style="border-radius: 0px;" spid-idp-button="#spid-idp-button-{{ spid_button_size }}-{{ method }}"
+        style="border-radius: 0px;" 
+        {% if btn_id %}
+        spid-idp-button="#spid-idp-button-{{ spid_button_size }}-{{ method }}-{{btn_id}}"
+        {% else %}
+        spid-idp-button="#spid-idp-button-{{ spid_button_size }}-{{ method }}"
+        {% endif %}
         aria-haspopup="true" aria-expanded="false">
         <span class="italia-it-button-icon"><img src="{% static 'spid/img/spid-ico-circle-bb.svg' %}"
                 onerror="this.src='{% static '/spid/img/spid-ico-circle-bb.png' %}'; this.onerror=null;"
                 alt="" /></span>
         <span class="italia-it-button-text">Entra con SPID</span>
     </a>
-    <div id="spid-idp-button-{{ spid_button_size }}-{{ method }}"
+    <div 
+        {% if btn_id %}
+        id="spid-idp-button-{{ spid_button_size }}-{{ method }}-{{btn_id}}"
+        {% else %}
+        id="spid-idp-button-{{ spid_button_size }}-{{ method }}"
+        {% endif %}
         class="spid-idp-button spid-idp-button-tip spid-idp-button-relative">
         <ul id="spid-idp-list-{{ spid_button_size }}-root-{{ method }}" class="spid-idp-button-menu"
             aria-labelledby="spid-idp">
             {% for idp in spid_idp_list %}
             <li class="spid-idp-button-link" data-idp="{{ idp.id }}">
-                <a href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}">
+                <a 
+                    {% if next %}
+                    href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}&next={{next}}"
+                    {% else %}
+                    href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}"
+                    {% endif %}
+                    >
                     <span class="spid-sr-only">{{ idp.name }}</span>
                     <img src="{% static 'spid/img/' %}spid-idp-{{ idp.id }}.svg"
                         onerror="this.src='{% static 'spid/img/' %}spid-idp-{{ idp.id }}.png'; this.onerror=null;"

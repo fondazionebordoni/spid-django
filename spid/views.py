@@ -23,6 +23,9 @@ def login(request):
         after_login_redirect_url = "/"
         if settings.SPID_POST_LOGIN_URL:
             after_login_redirect_url = reverse(settings.SPID_POST_LOGIN_URL)
+        if "next" in request.session:
+            after_login_redirect_url = "%s?next=%s" % (after_login_redirect_url, request.session["next"])
+            del request.session["next"]
         return HttpResponseRedirect(after_login_redirect_url)
 
     # Pre-login
@@ -34,7 +37,8 @@ def login(request):
         auth = init_saml_auth(req, idp, attr_cons_index)
         args = []
         if "next" in req["get_data"]:
-            args.append(req["get_data"].get("next"))
+            request.session["next"] = req["get_data"].get("next")
+            # args.append(req["get_data"].get("next"))
         redirect_url = auth.login(return_to="/spid/spid-login", force_authn=True, *args)
         request.session["request_id"] = auth.get_last_request_id()
         request.session["request_instant"] = datetime.now(timezone.utc).timestamp()
