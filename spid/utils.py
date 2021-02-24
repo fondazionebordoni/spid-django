@@ -15,11 +15,13 @@ ATTRIBUTES_MAP = {"familyName": "last_name", "name": "first_name"}
 
 
 def prepare_django_request(request):
+    # To handle the "multiple django projects under two sub-paths" case
+    script_name = request.META.get("HTTP_X_SCRIPT_NAME", "") + request.META["PATH_INFO"]
     result = {
         "https": "on" if request.is_secure() else "off",
         "http_host": request.META["HTTP_HOST"],
         "server_port": request.META["SERVER_PORT"],
-        "script_name": request.META["PATH_INFO"],
+        "script_name": script_name,
         "get_data": request.GET.copy(),
         "post_data": request.POST.copy(),
     }
