@@ -39,7 +39,7 @@ def login(request):
         if "next" in req["get_data"]:
             request.session["next"] = req["get_data"].get("next")
             # args.append(req["get_data"].get("next"))
-        redirect_url = auth.login(return_to="/spid/spid-login", force_authn=True, *args)
+        redirect_url = auth.login(return_to=reverse("spid:login"), force_authn=True, *args)
         request.session["request_id"] = auth.get_last_request_id()
         request.session["request_instant"] = datetime.now(timezone.utc).timestamp()
         request.session["attr_cons_index"] = attr_cons_index
