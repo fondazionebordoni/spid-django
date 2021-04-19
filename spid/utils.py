@@ -25,13 +25,24 @@ def prepare_django_request(request):
         "get_data": request.GET.copy(),
         "post_data": request.POST.copy(),
     }
-    if app_settings.IS_BEHIND_PROXY and "HTTP_X_FORWARDED_HOST" in request.META:
+    if not app_settings.IS_BEHIND_PROXY:
+        return result
+    if "HTTP_X_FORWARDED_HOST" in request.META:
         if request.META.get("HTTP_X_FORWARDED_PROTO", "http") == "https":
             result["https"] = "on"
         else:
             result["https"] = "off"
         result["http_host"] = request.META["HTTP_X_FORWARDED_HOST"]
         result["server_port"] = request.META["HTTP_X_FORWARDED_PORT"]
+    # This code was added to handle the case when the Proxy is not managed by us 
+    # (and therefore we cannot easily set the required header parameters).
+    elif hasattr(settings, "SPID_FORWARDED_HOST") and hasattr(settings, "SPID_FORWARDED_PORT") and hasattr(settings, "SPID_FORWARDED_PROTO"):
+        if settings.SPID_FORWARDED_PROTO == "https":
+            result["https"] = "on"
+        else:
+            result["https"] = "off"
+        result["http_host"] = settings.SPID_FORWARDED_HOST
+        result["server_port"] = settings.SPID_FORWARDED_PORT
     return result
 
 
