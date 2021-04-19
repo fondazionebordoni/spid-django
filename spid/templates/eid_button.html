@@ -14,7 +14,7 @@
         {% else %}
         href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}"
         {% endif %}
-        >
+        
         {% if method == 'post' %} 
             eidas-idp-button="#eidas-idp-button-medium-post" 
         {% else %} 
