@@ -10,11 +10,11 @@
     <a
         class="italia-it-button italia-it-button-size-m button-spid button-eidas"
         {% if next %}
-        href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}&next={{next}}"
+        href="{% url 'spid:login' %}?idp={{ idp_id }}&index={{index}}&next={{next}}"
         {% else %}
-        href="{% url 'spid:login' %}?idp={{ idp.id }}&index={{index}}"
+        href="{% url 'spid:login' %}?idp={{ idp_id }}&index={{index}}"
         {% endif %}
-        >
+        
         {% if method == 'post' %} 
             eidas-idp-button="#eidas-idp-button-medium-post" 
         {% else %} 
